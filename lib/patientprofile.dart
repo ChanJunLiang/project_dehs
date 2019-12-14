@@ -12,10 +12,8 @@ import 'package:dehs/splashscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
 
-String urlgetdriver = "http://pickupandlaundry.com/my_pickup/chan/php/getdriver.php";
-String urluploadImage =
-    "http://pickupandlaundry.com/my_pickup/chan/php/upload_imageprofile.php";
-String urlupdate = "http://pickupandlaundry.com/my_pickup/chan/php/user.php";
+String urlgetdriver = "http://pickupandlaundry.com/dehs/php/getdriver.php";
+String urlupdate = "http://pickupandlaundry.com/dehs/php/updateprofile.php";
 File _image;
 int number = 0;
 String _value;
@@ -73,19 +71,7 @@ class _PatientProfileState extends State<PatientProfile> {
                               SizedBox(
                                 height: 5,
                               ),
-                              GestureDetector(
-                                onTap: _takePicture,
-                                child: Container(
-                                    width: 150.0,
-                                    height: 150.0,
-                                    decoration: new BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(color: Colors.white),
-                                        image: new DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: new AssetImage("assets/images/dehslogo.png")
-                                            
-                              )))),
+                              
                               SizedBox(height: 5),
                               Container(
                                 child: Text(
@@ -112,7 +98,7 @@ class _PatientProfileState extends State<PatientProfile> {
                                       Icon(
                                         Icons.phone,
                                       ),
-                                      Text(widget.patient.phone),
+                                      Text(widget.patient.contact),
                                     ],
                                   ),
                                 ],
@@ -167,52 +153,6 @@ class _PatientProfileState extends State<PatientProfile> {
         ));
   }
 
-  void _takePicture() async {
-  
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Take new profile picture?"),
-          content: new Text("Are your sure?"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                _image =
-                    await ImagePicker.pickImage(source: ImageSource.camera);
-
-                String base64Image = base64Encode(_image.readAsBytesSync());
-                http.post(urluploadImage, body: {
-                  "encoded_string": base64Image,
-                  "email": widget.patient.email,
-                }).then((res) {
-                  print(res.body);
-                  if (res.body == "success") {
-                    setState(() {
-                      number = new Random().nextInt(100);
-                      print(number);
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
 
   void _logout() async {
@@ -385,7 +325,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   List dres = string.split(",");
                   if (dres[0] == "success") {
                     setState(() {
-                      widget.patient.phone = dres[3];
+                      widget.patient.contact = dres[3];
                       Toast.show("Success ", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       Navigator.of(context).pop();

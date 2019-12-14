@@ -1,5 +1,5 @@
 class Patient {
-  String name, email, phone ;
+  String name, email, contact ;
 
-  Patient({this.name, this.email, this.phone});
+  Patient({this.name, this.email, this.contact});
 }

@@ -1,3 +1,6 @@
+import 'package:dehs/admin.dart';
+import 'package:dehs/staff.dart';
+import 'package:dehs/staffmain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dehs/mainscreen.dart';
@@ -7,9 +10,12 @@ import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:dehs/patient.dart';
+import 'package:dehs/adminmain.dart';
 
 
 String urlLogin = "http://pickupandlaundry.com/dehs/php/login.php";
+String urlLoginStaff = "http://pickupandlaundry.com/dehs/php/loginstaff.php";
+String urlLoginAdmin= "http://pickupandlaundry.com/dehs/php/loginadmin.php";
 
 void main() => runApp(MyApp());
 
@@ -33,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passcontroller = TextEditingController();
   String _password = "";
   bool _isChecked = false;
+  var _user = ['User','Staff','Admin'];
+  var _currentuser = 'User';
 
   @override
   void initState() {
@@ -44,6 +52,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
         return Scaffold(
+          appBar: AppBar(
+          backgroundColor: Colors.teal[200],
+          title: Text('Log In'),
+        ),
           resizeToAvoidBottomPadding: false,
           body: new Container(
             padding: EdgeInsets.all(30.0),
@@ -62,6 +74,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   
                 ),
+                
+                Center(
+                  
+                  child:Container(
+                    height: 40,
+                    width: 75,
+                    child: DropdownButton<String>(
+                      items: _user.map((String dropDownStringItem) {
+                        return DropdownMenuItem<String>(
+                          value: dropDownStringItem,
+                          child: Text(dropDownStringItem),
+                        );
+                      }).toList(),
+                      onChanged: (String newValueSelected) {
+                        _onDropDownItemSelected(newValueSelected);
+                      },
+                      value: _currentuser,
+                    ),
+                    )),
+
+   
+
                 TextField(
                     controller: _emcontroller,
                     keyboardType: TextInputType.emailAddress,
@@ -98,6 +132,10 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 10,
                 ),
+                
+                SizedBox(
+                  height: 10,
+                ),
                 GestureDetector(
                     onTap: _onForgot,
                     child:
@@ -111,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
     void _onLogin(){
       _email = _emcontroller.text;
     _password = _passcontroller.text;
-    if (_isEmailValid(_email) && (_password.length > 4)) {
+    if (_isEmailValid(_email) && (_password.length > 4) && this._currentuser == 'User') {
       ProgressDialog pr = new ProgressDialog(context,
           type: ProgressDialogType.Normal, isDismissible: false);
       pr.style(message: "Log in");
@@ -129,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
         if (dres[0] == "success") {
           pr.dismiss();
           print(dres);
-         Patient patient = new Patient(name:dres[1],email: dres[2],phone:dres[3]);
+         Patient patient = new Patient(name:dres[1],email: dres[2],contact:dres[3]);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -141,7 +179,69 @@ class _LoginPageState extends State<LoginPage> {
         pr.dismiss();
         print(err);
       });
-    } else {}
+    } else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser =='Staff'){
+      ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Log in Sraff");
+      pr.show();
+      http.post(urlLoginStaff, body: {
+        "email": _email,
+        "password": _password,
+      }).then((res) {
+        print(res.statusCode);
+         var string = res.body;
+        List dres = string.split(",");
+        print(dres);
+        Toast.show(dres[0], context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        if (dres[0] == "success") {
+          print("success staff");
+          pr.dismiss();
+          print(dres);
+         Staff staff = new Staff(name:dres[1],email: dres[2],phone:dres[3]);
+         Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => StaffMain(staff: staff)));
+        } else {
+          pr.dismiss();
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });          
+    } else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser == 'Admin'){
+       ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Log in Admin");
+      pr.show();
+      http.post(urlLoginAdmin, body: {
+        "email": _email,
+        "password": _password,
+      }).then((res) {
+        print(res.statusCode);
+         var string = res.body;
+        List dres = string.split(",");
+        print(dres);
+        Toast.show(dres[0], context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        if (dres[0] == "success") {
+          print("success admin");
+          pr.dismiss();
+          print(dres);
+         Admin admin = new Admin(name:dres[1],email: dres[2],phone:dres[3]);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AdminMain(admin: admin)));
+        } else {
+          pr.dismiss();
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });
+    }else{}
   }
 
     void _onForgot(){
@@ -154,12 +254,8 @@ class _LoginPageState extends State<LoginPage> {
         context, MaterialPageRoute(builder: (context) => RegisterScreen()));
     }
 
-    void _onChange(bool value) {
-    setState(() {
-      _isChecked = value;
-      savepref(value);
-    });
-  }
+    
+
 
   void loadpref() async {
     print('Inside loadpref()');
@@ -217,6 +313,12 @@ class _LoginPageState extends State<LoginPage> {
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     }
   }
+
+  void _onDropDownItemSelected(String newValueSelected) {
+    setState(() {
+      this._currentuser = newValueSelected;
+    });
+  }  
 
 
   bool _isEmailValid(String email) {

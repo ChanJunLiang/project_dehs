@@ -209,7 +209,7 @@ class RegisterWidgetState extends State<RegisterWidget> {
     Patient patient = new Patient(
           name: "not register",
           email: "user@noregister",
-          phone: "not register",
+          contact: "not register",
           );
     print('onBackpress from RegisterUser');
     Navigator.pushReplacement(context,

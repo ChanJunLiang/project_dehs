@@ -1,20 +1,17 @@
+import 'package:dehs/staff.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/appointment.dart';
-import 'package:dehs/patientprofile.dart';
-import 'package:dehs/patient.dart';
+import 'package:dehs/staffprofile.dart';
 
-class MainScreen extends StatefulWidget {
-  final Patient patient;
- 
-
-  const MainScreen({Key key,this.patient}) : super(key: key);
-
+class StaffMain extends StatefulWidget {
+  final Staff staff;
+  const StaffMain({Key key,this.staff});
   
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _StaffMainState createState() => _StaffMainState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _StaffMainState extends State<StaffMain> {
   List<Widget> tabs;
 
   int currentTabIndex = 0;
@@ -24,11 +21,11 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     tabs = [
       Appointment(),
-      PatientProfile(patient: widget.patient),
+      StaffProfile(),
     ];
   }
   
-  String $pagetitle = "DEHS";
+  String $pagetitle = "Staff";
 
   onTapped(int index) {
     setState(() {
@@ -55,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
           
           BottomNavigationBarItem(
             icon: Icon(Icons.person ),
-            title: Text("Patient Profile"),
+            title: Text("Staff Profile"),
           ),
         ],
       ),
