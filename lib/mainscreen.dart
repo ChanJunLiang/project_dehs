@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           
           BottomNavigationBarItem(
-            icon: Icon(Icons.list, ),
+            icon: Icon(Icons.list),
             title: Text("Appointment"),
           ),
           

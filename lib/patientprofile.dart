@@ -35,14 +35,13 @@ class _PatientProfileState extends State<PatientProfile> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.teal[50],
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(
           backgroundColor: Colors.teal[200],
           title: Text('Profile', style: TextStyle(color:Colors.white)),
         ),
           body: ListView.builder(
-              //Step 6: Count the data
               itemCount: 5,
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -53,95 +52,120 @@ class _PatientProfileState extends State<PatientProfile> {
                          
                           Column(
                             children: <Widget>[
-                              Center(
-                                child: Text("DEHS",
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              
-                              SizedBox(height: 5),
                               Container(
+                              padding: EdgeInsets.fromLTRB(10,10,10,10),
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.teal[50],
+                  
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(5,15,15,15),
+                                decoration: BoxDecoration(
+                                color: Colors.teal[50],
+                                border: Border.all(color: Colors.teal[50]),
+                                ),
                                 child: Text(
-                                  widget.patient.name.toUpperCase(),
+                                  "NAME         :   " + widget.patient.name.toUpperCase(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 ),
                               ),
-                              
+                              ),
+
                               Container(
+                              padding: EdgeInsets.fromLTRB(10,5,10,10),
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.teal[50],
+                  
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(5,15,15,15),
+                                decoration: BoxDecoration(
+                                color: Colors.teal[50],
+                                border: Border.all(color: Colors.teal[50]),
+                                ),
                                 child: Text(
-                                  widget.patient.email,
+                                  "EMAIL         :   " + widget.patient.email,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                      fontSize: 16),
                                 ),
                               ),
-                              Column(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.phone,
-                                      ),
-                                      Text(widget.patient.contact),
-                                    ],
-                                  ),
-                                ],
                               ),
+
                               Container(
-                                color: Colors.teal[400],
-                                child: Center(
-                                  child: Text("My Profile ",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                ),                            
+                              padding: EdgeInsets.fromLTRB(10,5,10,10),
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.teal[50],
+                  
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(5,15,15,15),
+                                decoration: BoxDecoration(
+                                color: Colors.teal[50],
+                                border: Border.all(color: Colors.teal[50]),
+                                ),
+                                child: Text(
+                                  "CONTACT   :   " + widget.patient.contact,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
                               ),
+                              ),
+
+                              Container(
+                                child: Align(alignment: Alignment.center,
+                                child:MaterialButton(
+                                onPressed: _changeName,
+                                child: Text("CHANGE NAME"),),
+                                ),
+                              ),
+
+                              Container(
+                                child: Align(alignment: Alignment.center,
+                                child:MaterialButton(
+                                onPressed: _changePassword,
+                                child: Text("CHANGE PASSWORD"),),
+                                ),
+                              ),
+
+                              Container(
+                                child: Align(alignment: Alignment.center,
+                                child:MaterialButton(
+                                onPressed: _changeContact,
+                                child: Text("CHANGE CONTACT"),),
+                                ),
+                              ),
+                              
+
+                              Container(
+                                padding: EdgeInsets.fromLTRB(15,15,15,15),
+                                child: Align(alignment: Alignment.bottomCenter,
+                                child:RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(15,15,15,15),
+                                  color: Colors.teal[100],
+                                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
+                                
+                                onPressed: _logout,
+                                child: Text("LOG OUT",
+                                style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                      ),),
+                                ),
+                              ),
+
                             ],
                           ),
                         ]),
-                        SizedBox(
-                          height: 4,
-                        ),
+                        
                       ],
                     ),
                   );
                 }
 
-                if (index == 1) {
-                  return Padding(
-                    padding: EdgeInsets.all(2.0),
-                    child: Column(
-                      children: <Widget>[
-                        MaterialButton(
-                          onPressed: _changeName,
-                          child: Text("CHANGE NAME"),
-                        ),
-                        MaterialButton(
-                          onPressed: _changePassword,
-                          child: Text("CHANGE PASSWORD"),
-                        ),
-                        MaterialButton(
-                          onPressed: _changePhone,
-                          child: Text("CHANGE PHONE"),
-                        ),
-                        MaterialButton(
-                          onPressed: _logout,
-                          child: Text("LOG OUT"),
-                        )
-                      ],
-                    ),
-                  );
-                }
               }),
+              
+              
         ));
   }
 
@@ -281,7 +305,7 @@ class _PatientProfileState extends State<PatientProfile> {
     );
   }
 
-  void _changePhone() {
+  void _changeContact() {
     TextEditingController phoneController = TextEditingController();
     // flutter defined function
     print(widget.patient.name);
@@ -291,7 +315,7 @@ class _PatientProfileState extends State<PatientProfile> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change phone for" + widget.patient.name),
+          title: new Text("Change contact for" + widget.patient.name),
           content: new TextField(
               keyboardType: TextInputType.phone,
               controller: phoneController,

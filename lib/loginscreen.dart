@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
           print("success staff");
           pr.dismiss();
           print(dres);
-         Staff staff = new Staff(name:dres[1],email: dres[2],phone:dres[3]);
+         Staff staff = new Staff(name:dres[1],email: dres[2],contact:dres[3]);
          Navigator.push(
               context,
               MaterialPageRoute(
@@ -229,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
           print("success admin");
           pr.dismiss();
           print(dres);
-         Admin admin = new Admin(name:dres[1],email: dres[2],phone:dres[3]);
+         Admin admin = new Admin(name:dres[1],email: dres[2],contact:dres[3]);
           Navigator.push(
               context,
               MaterialPageRoute(

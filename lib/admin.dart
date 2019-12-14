@@ -1,5 +1,5 @@
 class Admin {
-  String name, email, phone ;
+  String name, email, contact ;
 
-  Admin({this.name, this.email, this.phone});
+  Admin({this.name, this.email, this.contact});
 }

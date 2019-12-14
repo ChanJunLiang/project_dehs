@@ -1,5 +1,5 @@
 class Staff {
-  String name, email, phone ;
+  String name, email, contact ;
 
-  Staff({this.name, this.email, this.phone});
+  Staff({this.name, this.email, this.contact});
 }
