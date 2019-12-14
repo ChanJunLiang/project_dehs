@@ -1,22 +1,14 @@
-import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:dehs/patient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:dehs/splashscreen.dart';
-import 'package:intl/intl.dart';
-import 'package:random_string/random_string.dart';
 
 String urlgetdriver = "http://pickupandlaundry.com/dehs/php/getdriver.php";
 String urlupdate = "http://pickupandlaundry.com/dehs/php/updateprofile.php";
-File _image;
 int number = 0;
-String _value;
 
 class PatientProfile extends StatefulWidget {
   final Patient patient;
@@ -45,7 +37,7 @@ class _PatientProfileState extends State<PatientProfile> {
         home: Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomPadding: false,
-           appBar: AppBar(
+          appBar: AppBar(
           backgroundColor: Colors.teal[200],
           title: Text('Profile', style: TextStyle(color:Colors.white)),
         ),

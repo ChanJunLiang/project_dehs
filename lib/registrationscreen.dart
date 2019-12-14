@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:dehs/patient.dart';
 import 'package:dehs/loginscreen.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:dehs/mainscreen.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
@@ -75,23 +71,6 @@ class RegisterWidgetState extends State<RegisterWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        GestureDetector(
-             onTap: () => mainBottomSheet(context),
-            child: Container(
-              width: 180,
-              height: 200,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: _image == null
-                        ? AssetImage(pathAsset)
-                        : FileImage(_image),
-                    fit: BoxFit.fill,
-                  )),
-            )),
-        Text(_image == null
-        ? 'Click on image above to change profile picture'
-        : ' '),
         TextField(
             controller: _emcontroller,
             keyboardType: TextInputType.emailAddress,
@@ -146,74 +125,15 @@ class RegisterWidgetState extends State<RegisterWidget> {
       ],
     );
   }
-
-  void mainBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _createTile(context, 'Camera', Icons.camera, _takephoto),
-              _createTile(context, 'Gallery', Icons.photo_library, _choose),
-            ],
-          );
-        });
-  }  
-    
-
-    ListTile _createTile(
-    BuildContext context, String name, IconData icon, Function action) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(name),
-      onTap: () {
-        Navigator.pop(context);
-        action();
-      },
-    );
-  }
-
-  _takephoto() async {
-    print('action camera');
-    File _cameraImage;
-
-    _cameraImage = await ImagePicker.pickImage(source: ImageSource.camera);
-    if (_cameraImage != null) {
-      //Avoid crash if user cancel picking image
-      _image = _cameraImage;
-      setState(() {});
-    }
-  }
-
-  _choose() async {
-    print('action gallery');
-    File _galleryImage;
-
-    _galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (_galleryImage != null) {
-      //Avoid crash if user cancel picking image
-      _image = _galleryImage;
-      setState(() {});
-    }
-  }
-
   void _onRegister() {
     print('onRegister Button from RegisterUser()');
-    print(_image.toString());
     uploadData();
   }
 
   void _onBackPress() {
-    _image = null;
-    Patient patient = new Patient(
-          name: "not register",
-          email: "user@noregister",
-          contact: "not register",
-          );
     print('onBackpress from RegisterUser');
     Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => MainScreen(patient: patient)));
+        MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
   }
 
   void uploadData() {
@@ -225,17 +145,13 @@ class RegisterWidgetState extends State<RegisterWidget> {
 
     if ((_isEmailValid(_email)) &&
         (_password.length > 5) &&
-        (_image != null) &&
         (_contact.length > 5) &&
         (_password == _password2)) {
       ProgressDialog pr = new ProgressDialog(context,
           type: ProgressDialogType.Normal, isDismissible: false);
       pr.style(message: "Registration in progress");
       pr.show();
-
-      String base64Image = base64Encode(_image.readAsBytesSync());
       http.post(urlUpload, body: {
-        "encoded_string": base64Image,
         "name": _name,
         "email": _email,
         "password": _password,
