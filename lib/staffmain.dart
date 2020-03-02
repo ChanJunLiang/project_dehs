@@ -1,6 +1,7 @@
 import 'package:dehs/staff.dart';
+import 'package:dehs/staffappointment.dart';
+import 'package:dehs/staffappointment2.dart';
 import 'package:flutter/material.dart';
-import 'package:dehs/appointment.dart';
 import 'package:dehs/staffprofile.dart';
 
 class StaffMain extends StatefulWidget {
@@ -20,7 +21,7 @@ class _StaffMainState extends State<StaffMain> {
   void initState() {
     super.initState();
     tabs = [
-      Appointment(),
+      StaffAppointment2(staff: widget.staff),
       StaffProfile(),
     ];
   }
@@ -46,8 +47,8 @@ class _StaffMainState extends State<StaffMain> {
         items: [
           
           BottomNavigationBarItem(
-            icon: Icon(Icons.list, ),
-            title: Text("Appointment"),
+            icon: Icon(Icons.list ),
+            title: Text("Appointment List"),
           ),
           
           BottomNavigationBarItem(

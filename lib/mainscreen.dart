@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabs = [
-      Appointment(),
+      Appointment(patient: widget.patient),
       PatientProfile(patient: widget.patient),
     ];
   }

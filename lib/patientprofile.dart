@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:dehs/splashscreen.dart';
 
-String urlgetdriver = "http://pickupandlaundry.com/dehs/php/getdriver.php";
 String urlupdate = "http://pickupandlaundry.com/dehs/php/updateprofile.php";
 int number = 0;
 
@@ -42,7 +41,6 @@ class _PatientProfileState extends State<PatientProfile> {
           title: Text('Profile', style: TextStyle(color:Colors.white)),
         ),
           body: ListView.builder(
-              itemCount: 5,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Container(
@@ -53,86 +51,143 @@ class _PatientProfileState extends State<PatientProfile> {
                           Column(
                             children: <Widget>[
                               Container(
-                              padding: EdgeInsets.fromLTRB(10,10,10,10),
+                              padding: EdgeInsets.fromLTRB(10,10,10,0),
                               width: MediaQuery.of(context).size.width,
                               color: Colors.teal[50],
                   
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(5,15,15,15),
-                                decoration: BoxDecoration(
-                                color: Colors.teal[50],
-                                border: Border.all(color: Colors.teal[50]),
-                                ),
-                                child: Text(
-                                  "NAME         :   " + widget.patient.name.toUpperCase(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              ),
-
-                              Container(
-                              padding: EdgeInsets.fromLTRB(10,5,10,10),
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.teal[50],
-                  
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(5,15,15,15),
-                                decoration: BoxDecoration(
-                                color: Colors.teal[50],
-                                border: Border.all(color: Colors.teal[50]),
-                                ),
-                                child: Text(
-                                  "EMAIL         :   " + widget.patient.email,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              ),
-
-                              Container(
-                              padding: EdgeInsets.fromLTRB(10,5,10,10),
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.teal[50],
-                  
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(5,15,15,15),
-                                decoration: BoxDecoration(
-                                color: Colors.teal[50],
-                                border: Border.all(color: Colors.teal[50]),
-                                ),
-                                child: Text(
-                                  "CONTACT   :   " + widget.patient.contact,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              ),
-
-                              Container(
-                                child: Align(alignment: Alignment.center,
+                              child: Table(
+                                defaultColumnWidth: FixedColumnWidth(1.0),
+                                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                children:[
+                                  TableRow(children: [
+                                  new Text("Name",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  new Text(widget.patient.name.toUpperCase(),style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
                                 child:MaterialButton(
                                 onPressed: _changeName,
-                                child: Text("CHANGE NAME"),),
-                                ),
+                                child: Text("UPDATE",style: TextStyle(
+                                      color: Colors.blue[600],
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),),
+                        
                               ),
+                                  ]),
 
-                              Container(
+                                  TableRow(children: [
+                                  new Text("Ic Number",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                      
+                                  new Text(widget.patient.icno??"null",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
                                 child: Align(alignment: Alignment.center,
                                 child:MaterialButton(
-                                onPressed: _changePassword,
-                                child: Text("CHANGE PASSWORD"),),
+                                onPressed: _changeICno,
+                                child: Text("UPDATE",style: TextStyle(
+                                      color: Colors.blue[600],
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),),
                                 ),
                               ),
+                                  ]),
 
-                              Container(
+                                  TableRow(children: [
+                                  new Text("Email",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  new Text(widget.patient.email,style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
+                                child: Align(alignment: Alignment.center,
+                                
+                                ),
+                              ),
+                                  ]),
+
+                                  TableRow(children: [
+                                  new Text("Address",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  
+                                  new Text(widget.patient.address??"null",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
+                                child: Align(alignment: Alignment.center,
+                                child:MaterialButton(
+                                onPressed: _changeAddress,
+                                child: Text("UPDATE",style: TextStyle(
+                                      color: Colors.blue[600],
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),),
+                                ),
+                              ),
+                                  ]),
+                                  
+                                  TableRow(children: [
+                                  new Text("Contact",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  new Text(widget.patient.contact,style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
                                 child: Align(alignment: Alignment.center,
                                 child:MaterialButton(
                                 onPressed: _changeContact,
-                                child: Text("CHANGE CONTACT"),),
+                                child: Text("UPDATE",style: TextStyle(
+                                      color: Colors.blue[600],
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),),
+                                ),
+                              ),
+                                  ]),
+
+                                  TableRow(children: [
+                                  new Text("Emergency Contact", style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  new Text(widget.patient.em_contact??"null", style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  Container(
+                                child: Align(alignment: Alignment.center,
+                                child:MaterialButton(
+                                onPressed: _changeEmContact,
+                                child: Text("UPDATE",style: TextStyle(
+                                      color: Colors.blue[600],
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),),
+                                ),
+                              ),
+                                  ]),
+                                  
+                                  ]
+                                
+                              ),
+                              ),
+
+                              Container(
+                                padding: EdgeInsets.fromLTRB(15,15,15,15),
+                                child: Align(alignment: Alignment.bottomCenter,
+                                child:RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(15,15,15,15),
+                                  color: Colors.teal[100],
+                                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
+                                
+                                onPressed: _changePassword,
+                                child: Text("CHANGE PASSWORD",
+                                style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                      ),),
                                 ),
                               ),
                               
@@ -241,6 +296,67 @@ class _PatientProfileState extends State<PatientProfile> {
     );
   }
 
+  void _changeAddress() {
+    TextEditingController addressController = TextEditingController();
+    // flutter defined function
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Change Address?"),
+          content: new TextField(
+              controller: addressController,
+              decoration: InputDecoration(
+                labelText: 'Address',
+                icon: Icon(Icons.person),
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                if (addressController.text.length < 5) {
+                  Toast.show(
+                      "Please insert accurate address", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                  return;
+                }
+                http.post(urlupdate, body: {
+                  "email": widget.patient.email,
+                  "address": addressController.text,
+                }).then((res) {
+                  var string = res.body;
+                  List dres = string.split(",");
+                  if (dres[0] == "success") {
+                    print('in success');
+                    setState(() {
+                      widget.patient.name = dres[1];
+                      if (dres[0] == "success") {
+                        print("in setstate");
+                        widget.patient.name = dres[1];
+                      }
+                    });
+                  } else {}
+                }).catchError((err) {
+                  print(err);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _changePassword() {
     TextEditingController passController = TextEditingController();
     // flutter defined function
@@ -250,7 +366,7 @@ class _PatientProfileState extends State<PatientProfile> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change Password for " + widget.patient.name),
+          title: new Text("Change Password"),
           content: new TextField(
             controller: passController,
             decoration: InputDecoration(
@@ -305,8 +421,69 @@ class _PatientProfileState extends State<PatientProfile> {
     );
   }
 
+  void _changeICno() {
+    TextEditingController ICnoController = TextEditingController();
+    // flutter defined function
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Change IC number"),
+          content: new TextField(
+              controller:ICnoController,
+              decoration: InputDecoration(
+                labelText: 'IC no',
+                icon: Icon(Icons.person),
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                if (ICnoController.text.length < 5) {
+                  Toast.show(
+                      "Please insert correct IC number", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                  return;
+                }
+                http.post(urlupdate, body: {
+                  "email": widget.patient.email,
+                  "icno": ICnoController.text,
+                }).then((res) {
+                  var string = res.body;
+                  List dres = string.split(",");
+                  if (dres[0] == "success") {
+                    print('in success');
+                    setState(() {
+                      widget.patient.name = dres[1];
+                      if (dres[0] == "success") {
+                        print("in setstate");
+                        widget.patient.name = dres[1];
+                      }
+                    });
+                  } else {}
+                }).catchError((err) {
+                  print(err);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _changeContact() {
-    TextEditingController phoneController = TextEditingController();
+    TextEditingController contactController = TextEditingController();
     // flutter defined function
     print(widget.patient.name);
     
@@ -315,12 +492,12 @@ class _PatientProfileState extends State<PatientProfile> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change contact for" + widget.patient.name),
+          title: new Text("Change contact"),
           content: new TextField(
               keyboardType: TextInputType.phone,
-              controller: phoneController,
+              controller: contactController,
               decoration: InputDecoration(
-                labelText: 'phone',
+                labelText: 'contact',
                 icon: Icon(Icons.phone),
               )),
           actions: <Widget>[
@@ -328,14 +505,75 @@ class _PatientProfileState extends State<PatientProfile> {
             new FlatButton(
               child: new Text("Yes"),
               onPressed: () {
-                if (phoneController.text.length < 5) {
-                  Toast.show("Please enter correct phone number", context,
+                if (contactController.text.length < 5) {
+                  Toast.show("Please enter correct contact number", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       return;
                 }
                 http.post(urlupdate, body: {
                   "email": widget.patient.email,
-                  "phone": phoneController.text,
+                  "contact": contactController.text,
+                }).then((res) {
+                  var string = res.body;
+                  List dres = string.split(",");
+                  if (dres[0] == "success") {
+                    setState(() {
+                      widget.patient.contact = dres[3];
+                      Toast.show("Success ", context,
+                          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      Navigator.of(context).pop();
+                      return;
+                    });
+                  }
+                  
+                }).catchError((err) {
+                  print(err);
+                });
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _changeEmContact() {
+    TextEditingController emcontactController = TextEditingController();
+    // flutter defined function
+    print(widget.patient.em_contact);
+    
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Change emergency contact"),
+          content: new TextField(
+              keyboardType: TextInputType.phone,
+              controller: emcontactController,
+              decoration: InputDecoration(
+                labelText: 'emergency contact',
+                icon: Icon(Icons.phone),
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                if (emcontactController.text.length < 5) {
+                  Toast.show("Please enter correct emergency contact number", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      return;
+                }
+                http.post(urlupdate, body: {
+                  "email": widget.patient.email,
+                  "em_contact": emcontactController.text,
                 }).then((res) {
                   var string = res.body;
                   List dres = string.split(",");

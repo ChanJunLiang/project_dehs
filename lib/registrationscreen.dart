@@ -34,7 +34,7 @@ class _RegisterUserState extends State<RegisterScreen> {
     return WillPopScope(
       onWillPop: _onBackPressAppBar,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AppBar(
           title: Text('New User Registration'),
           backgroundColor: Colors.teal[200],

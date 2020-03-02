@@ -56,91 +56,93 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.teal[200],
           title: Text('Log In'),
         ),
-          resizeToAvoidBottomPadding: false,
-          body: new Container(
-            padding: EdgeInsets.all(30.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 190.0,
-                  height: 190.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 2.0, color: Colors.teal[300]),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/dehslogo.jpeg'))
-                    ),
+          resizeToAvoidBottomPadding: true,
+          body: SingleChildScrollView(
+                      child: new Container(
+              padding: EdgeInsets.all(30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 190.0,
+                    height: 190.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2.0, color: Colors.teal[300]),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/dehslogo.jpeg'))
+                      ),
+                    
+                  ),
                   
-                ),
-                
-                Center(
-                  
-                  child:Container(
-                    height: 40,
-                    width: 75,
-                    child: DropdownButton<String>(
-                      items: _user.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String>(
-                          value: dropDownStringItem,
-                          child: Text(dropDownStringItem),
-                        );
-                      }).toList(),
-                      onChanged: (String newValueSelected) {
-                        _onDropDownItemSelected(newValueSelected);
-                      },
-                      value: _currentuser,
-                    ),
-                    )),
+                  Center(
+                    
+                    child:Container(
+                      height: 40,
+                      width: 75,
+                      child: DropdownButton<String>(
+                        items: _user.map((String dropDownStringItem) {
+                          return DropdownMenuItem<String>(
+                            value: dropDownStringItem,
+                            child: Text(dropDownStringItem),
+                          );
+                        }).toList(),
+                        onChanged: (String newValueSelected) {
+                          _onDropDownItemSelected(newValueSelected);
+                        },
+                        value: _currentuser,
+                      ),
+                      )),
 
    
 
-                TextField(
-                    controller: _emcontroller,
-                    keyboardType: TextInputType.emailAddress,
+                  TextField(
+                      controller: _emcontroller,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          labelText: 'Email', icon: Icon(Icons.email))),
+                  TextField(
+                    controller: _passcontroller,
                     decoration: InputDecoration(
-                        labelText: 'Email', icon: Icon(Icons.email))),
-                TextField(
-                  controller: _passcontroller,
-                  decoration: InputDecoration(
-                      labelText: 'Password', icon: Icon(Icons.lock)),
-                  obscureText: true,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  minWidth: 300,
-                  height: 50,
-                  child: Text('Login'),
-                  color: Colors.teal[200],
-                  textColor: Colors.black,
-                  elevation: 15,
-                  onPressed: _onLogin,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                
-                GestureDetector(
-                    onTap: _onRegister,
-                    child: Text('Register New Account',
-                        style: TextStyle(fontSize: 16))),
-                SizedBox(
-                  height: 10,
-                ),
-                
-                SizedBox(
-                  height: 10,
-                ),
-                GestureDetector(
-                    onTap: _onForgot,
-                    child:
-                        Text('Forgot Account', style: TextStyle(fontSize: 16))),
-              ],
+                        labelText: 'Password', icon: Icon(Icons.lock)),
+                    obscureText: true,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    minWidth: 300,
+                    height: 50,
+                    child: Text('Login'),
+                    color: Colors.teal[200],
+                    textColor: Colors.black,
+                    elevation: 15,
+                    onPressed: _onLogin,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  
+                  GestureDetector(
+                      onTap: _onRegister,
+                      child: Text('Register New Account',
+                          style: TextStyle(fontSize: 16))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  
+                  SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                      onTap: _onForgot,
+                      child:
+                          Text('Forgot Account', style: TextStyle(fontSize: 16))),
+                ],
+              ),
             ),
           ),
         );
@@ -165,24 +167,29 @@ class _LoginPageState extends State<LoginPage> {
         Toast.show(dres[0], context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         if (dres[0] == "success") {
-          pr.dismiss();
-          print(dres);
-         Patient patient = new Patient(name:dres[1],email: dres[2],contact:dres[3]);
+           pr.dismiss();
+           print(dres);
+          Patient patient = new Patient(name:dres[1],email: dres[2],contact:dres[3]);
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => MainScreen(patient: patient)));
         } else {
           pr.dismiss();
+          
         }
       }).catchError((err) {
         pr.dismiss();
         print(err);
       });
-    } else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser =='Staff'){
+    } else if(_email==null||_password==null){
+      Toast.show("Log in failed, please try again.", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+      }else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser =='Staff'){
       ProgressDialog pr = new ProgressDialog(context,
           type: ProgressDialogType.Normal, isDismissible: false);
-      pr.style(message: "Log in Sraff");
+      pr.style(message: "Log in Staff");
       pr.show();
       http.post(urlLoginStaff, body: {
         "email": _email,

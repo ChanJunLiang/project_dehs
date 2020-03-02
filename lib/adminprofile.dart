@@ -42,7 +42,6 @@ class _AdminProfileState extends State<AdminProfile> {
           title: Text('Profile', style: TextStyle(color:Colors.white)),
         ),
           body: ListView.builder(
-              itemCount: 5,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Container(
