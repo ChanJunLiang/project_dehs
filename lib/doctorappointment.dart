@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:dehs/staff.dart';
+import 'package:dehs/doctor.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-import 'package:dehs/makeappointment.dart';
+import 'package:dehs/makeappointment1.dart';
 
 String urlgetdriver = "http://pickupandlaundry.com/dehs/php/getdriver.php";
 String urlupdate = "http://pickupandlaundry.com/dehs/php/makeappointment.php";
@@ -10,15 +10,15 @@ int number = 0;
 double perpage = 1;
 
 
-class StaffAppointment extends StatefulWidget {
-  final Staff staff;
-  final MakeAppointment makeappointment;
-  StaffAppointment({Key key, this.staff, this.makeappointment}) : super(key: key);
+class DoctorAppointment extends StatefulWidget {
+  final Doctor doctor;
+  final MakeAppointment1 makeappointment;
+  DoctorAppointment({Key key, this.doctor, this.makeappointment}) : super(key: key);
     @override
-  _StaffAppointmentState createState() => _StaffAppointmentState();
+  _DoctorAppointmentState createState() => _DoctorAppointmentState();
 }
 
-class _StaffAppointmentState extends State<StaffAppointment> {
+class _DoctorAppointmentState extends State<DoctorAppointment> {
   List data;
   @override
   Widget build(BuildContext context) {

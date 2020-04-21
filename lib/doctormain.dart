@@ -1,18 +1,17 @@
-import 'package:dehs/staff.dart';
-import 'package:dehs/staffappointment.dart';
-import 'package:dehs/staffappointment2.dart';
+import 'package:dehs/doctor.dart';
+import 'package:dehs/doctorappointment2.dart';
 import 'package:flutter/material.dart';
-import 'package:dehs/staffprofile.dart';
+import 'package:dehs/doctorprofile.dart';
 
-class StaffMain extends StatefulWidget {
-  final Staff staff;
-  const StaffMain({Key key,this.staff});
+class DoctorMain extends StatefulWidget {
+  final Doctor doctor;
+  const DoctorMain({Key key,this.doctor});
   
   @override
-  _StaffMainState createState() => _StaffMainState();
+  _DoctorMainState createState() => _DoctorMainState();
 }
 
-class _StaffMainState extends State<StaffMain> {
+class _DoctorMainState extends State<DoctorMain> {
   List<Widget> tabs;
 
   int currentTabIndex = 0;
@@ -21,12 +20,12 @@ class _StaffMainState extends State<StaffMain> {
   void initState() {
     super.initState();
     tabs = [
-      StaffAppointment2(staff: widget.staff),
-      StaffProfile(),
+      DoctorAppointment2(doctor: widget.doctor),
+      DoctorProfile(doctor: widget.doctor),
     ];
   }
   
-  String $pagetitle = "Staff";
+  String $pagetitle = "Doctor";
 
   onTapped(int index) {
     setState(() {
@@ -53,7 +52,7 @@ class _StaffMainState extends State<StaffMain> {
           
           BottomNavigationBarItem(
             icon: Icon(Icons.person ),
-            title: Text("Staff Profile"),
+            title: Text("Doctor Profile"),
           ),
         ],
       ),

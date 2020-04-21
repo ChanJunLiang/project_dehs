@@ -1,6 +1,8 @@
 import 'package:dehs/admin.dart';
-import 'package:dehs/staff.dart';
-import 'package:dehs/staffmain.dart';
+import 'package:dehs/doctorforgot.dart';
+import 'package:dehs/forgotpassword.dart';
+import 'package:dehs/doctor.dart';
+import 'package:dehs/doctormain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dehs/mainscreen.dart';
@@ -14,8 +16,10 @@ import 'package:dehs/adminmain.dart';
 
 
 String urlLogin = "http://pickupandlaundry.com/dehs/php/login.php";
-String urlLoginStaff = "http://pickupandlaundry.com/dehs/php/loginstaff.php";
+String urlLoginDoctor = "http://pickupandlaundry.com/dehs/php/doctorlogin.php";
 String urlLoginAdmin= "http://pickupandlaundry.com/dehs/php/loginadmin.php";
+String urlSecurityCodeForResetPass ='https://pickupandlaundry.com/dehs/php/securitycode.php';
+String urlSecurityCodeForResetPassDr ='https://pickupandlaundry.com/dehs/php/doctorsecuritycode.php';
 
 void main() => runApp(MyApp());
 
@@ -39,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passcontroller = TextEditingController();
   String _password = "";
   bool _isChecked = false;
-  var _user = ['User','Staff','Admin'];
+  var _user = ['User','Doctor','Admin'];
   var _currentuser = 'User';
 
   @override
@@ -169,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
         if (dres[0] == "success") {
            pr.dismiss();
            print(dres);
-          Patient patient = new Patient(name:dres[1],email: dres[2],contact:dres[3]);
+          Patient patient = new Patient(name:dres[1],email: dres[2],contact:dres[3],icno:dres[4],address:dres[5],em_contact:dres[4]);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -186,12 +190,12 @@ class _LoginPageState extends State<LoginPage> {
       Toast.show("Log in failed, please try again.", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
-      }else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser =='Staff'){
+      }else if(_isEmailValid(_email) && (_password.length > 4) && this._currentuser =='Doctor'){
       ProgressDialog pr = new ProgressDialog(context,
           type: ProgressDialogType.Normal, isDismissible: false);
-      pr.style(message: "Log in Staff");
+      pr.style(message: "Log in Doctor");
       pr.show();
-      http.post(urlLoginStaff, body: {
+      http.post(urlLoginDoctor, body: {
         "email": _email,
         "password": _password,
       }).then((res) {
@@ -202,14 +206,16 @@ class _LoginPageState extends State<LoginPage> {
         Toast.show(dres[0], context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         if (dres[0] == "success") {
-          print("success staff");
+          print("success doctor");
           pr.dismiss();
           print(dres);
-         Staff staff = new Staff(name:dres[1],email: dres[2],contact:dres[3]);
+         Doctor doctor = new Doctor(name:dres[1],email: dres[2], drid:dres[3], icno:dres[4], contact:dres[5],officecontact:dres[6], address:dres[7]
+         , t0910:dres[8], t0930:dres[9], t0950:dres[10], t1010:dres[11], t1030:dres[12], t1050:dres[13], t1110:dres[14], t1130:dres[15], t1150:dres[16]
+         , t1410:dres[17], t1430:dres[18], t1450:dres[19], t1510:dres[20], t1530:dres[21], t1550:dres[22], t1610:dres[23], t1630:dres[24]);
          Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => StaffMain(staff: staff)));
+                  builder: (context) => DoctorMain(doctor: doctor)));
         } else {
           pr.dismiss();
         }
@@ -251,17 +257,85 @@ class _LoginPageState extends State<LoginPage> {
     }else{}
   }
 
-    void _onForgot(){
-    print('Forgot');
+     void _onForgot(){
+    _email = _emcontroller.text;
+
+    if (_isEmailValid(_email)&& this._currentuser == 'User') {
+      ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Sending Email");
+      pr.show();
+      http.post(urlSecurityCodeForResetPass, body: {
+        "email": _email,
+      }).then((res) {
+        print("secure code : " + res.body);
+        if (res.body == "error") {
+          pr.dismiss();
+          Toast.show('error', context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        } else {
+          pr.dismiss();
+          _saveEmailForPassReset(_email);
+          _saveSecureCode(res.body); 
+          Toast.show('Security code sent to your email', context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ForgotPassword()));
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });
+    } else if(_isEmailValid(_email)&& this._currentuser == 'Doctor') {
+      ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Sending Email");
+      pr.show();
+      http.post(urlSecurityCodeForResetPassDr, body: {
+        "email": _email,
+      }).then((res) {
+        print("secure code : " + res.body);
+        if (res.body == "error") {
+          pr.dismiss();
+          Toast.show('error', context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        } else {
+          pr.dismiss();
+          _saveEmailForPassReset(_email);
+          _saveSecureCode(res.body); 
+          Toast.show('Security code sent to your email', context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DoctorForgot()));
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });
+    } else {
+      Toast.show('Invalid Email', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
+  }
+  
+  void _saveEmailForPassReset(String email) async {
+    print('saving preferences');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('resetPassEmail', email);
+  }
+
+  void _saveSecureCode(String code) async {
+    print('saving preferences');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('secureCode', code);
+  }
 
     void _onRegister(){
     print('onRegister');
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => RegisterScreen()));
     }
-
-    
+   
 
 
   void loadpref() async {

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
-import 'package:dehs/patient.dart';
+import 'package:dehs/doctor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:dehs/splashscreen.dart';
 
-String urlgetpatient = "http://pickupandlaundry.com/dehs/php/getpatient.php";
-String urlupdate = "http://pickupandlaundry.com/dehs/php/updateprofile.php";
+String urlgetdoctor = "http://pickupandlaundry.com/dehs/php/getdoctor.php";
+String urlupdate = "http://pickupandlaundry.com/dehs/php/doctorupdateprofile.php";
 int number = 0;
 
-class PatientProfile extends StatefulWidget {
-  final Patient patient;
+class DoctorProfile extends StatefulWidget {
+  final Doctor doctor;
 
-  PatientProfile({Key key, this.patient}) : super(key: key);
+  DoctorProfile({Key key, this.doctor}) : super(key: key);
 
   @override
-  _PatientProfileState createState() => _PatientProfileState();
+  _DoctorProfileState createState() => _DoctorProfileState();
 }
 
-class _PatientProfileState extends State<PatientProfile> {
+class _DoctorProfileState extends State<DoctorProfile> {
   GlobalKey<RefreshIndicatorState> refreshKey;
 
   @override
@@ -38,7 +38,7 @@ class _PatientProfileState extends State<PatientProfile> {
           backgroundColor: Colors.teal[50],
           resizeToAvoidBottomPadding: true,
           appBar: AppBar(
-          backgroundColor: Colors.teal[300],
+          backgroundColor: Colors.teal[200],
           title: Text('Profile', style: TextStyle(color:Colors.white)),
         ),
           body: SingleChildScrollView(
@@ -59,10 +59,10 @@ class _PatientProfileState extends State<PatientProfile> {
                                   new Text("Name",style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  new Text((widget.patient.name).toUpperCase(),style: TextStyle(
+                                  new Text((widget.doctor.name).toUpperCase(),style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  Container(
+                                  Container(                                    
                                 child:MaterialButton(
                                 onPressed: _changeName,
                                 child: Text("UPDATE",style: TextStyle(
@@ -74,10 +74,25 @@ class _PatientProfileState extends State<PatientProfile> {
                                   ]),
 
                                   TableRow(children: [
+                                  new Text("ID Number",style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                  new Text(widget.doctor.drid??'NULL',style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),),
+                                        Container(
+                                  child: Align(alignment: Alignment.center,
+                                  
+                                  ),
+                                ),
+                                      
+                                  ]),
+                                  
+                                  TableRow(children: [
                                   new Text("Ic Number",style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  new Text(widget.patient.icno??'null',style: TextStyle(
+                                  new Text(widget.doctor.icno??'null',style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   Container(
@@ -96,7 +111,7 @@ class _PatientProfileState extends State<PatientProfile> {
                                   new Text("Email",style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  new Text(widget.patient.email,style: TextStyle(
+                                  new Text(widget.doctor.email,style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   Container(
@@ -111,7 +126,7 @@ class _PatientProfileState extends State<PatientProfile> {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   
-                                  new Text(widget.patient.address??"null",style: TextStyle(
+                                  new Text(widget.doctor.address??"null",style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   Container(
@@ -130,7 +145,7 @@ class _PatientProfileState extends State<PatientProfile> {
                                   new Text("Contact",style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  new Text(widget.patient.contact,style: TextStyle(
+                                  new Text(widget.doctor.contact,style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   Container(
@@ -146,16 +161,16 @@ class _PatientProfileState extends State<PatientProfile> {
                                   ]),
 
                                   TableRow(children: [
-                                  new Text("Emergency Contact", style: TextStyle(
+                                  new Text("Office Contact", style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
-                                  new Text(widget.patient.em_contact??"null", style: TextStyle(
+                                  new Text(widget.doctor.officecontact??"null", style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),),
                                   Container(
                                 child: Align(alignment: Alignment.center,
                                 child:MaterialButton(
-                                onPressed: _changeEmContact,
+                                onPressed: _changeOfficeContact,
                                 child: Text("UPDATE",style: TextStyle(
                                       color: Colors.blue[600],
                                       fontWeight: FontWeight.w500,
@@ -235,7 +250,7 @@ class _PatientProfileState extends State<PatientProfile> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change " + widget.patient.name),
+          title: new Text("Change " + widget.doctor.name),
           content: new TextField(
               controller: nameController,
               decoration: InputDecoration(
@@ -254,7 +269,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
+                  "email": widget.doctor.email,
                   "name": nameController.text,
                 }).then((res) {
                   var string = res.body;
@@ -262,7 +277,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   if (dres[0] == "success") {
                     print('in success');
                     setState(() {
-                      widget.patient.name = dres[1];
+                      widget.doctor.name = dres[1];
                     });
                   } else {}
                 }).catchError((err) {
@@ -311,7 +326,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
+                  "email": widget.doctor.email,
                   "address": addressController.text,
                 }).then((res) {
                   var string = res.body;
@@ -319,8 +334,8 @@ class _PatientProfileState extends State<PatientProfile> {
                   if (dres[0] == "success") {
                     print('in success');
                     setState(() {
-                      widget.patient.address = dres[6];
-                      Toast.show("Success. Log in again to view changes.", context,
+                      widget.doctor.address = dres[6];
+                      Toast.show("Success.", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                     Navigator.of(context).pop();
                     });
@@ -371,7 +386,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
+                  "email": widget.doctor.email,
                   "password": passController.text,
                 }).then((res) {
                   var string = res.body;
@@ -379,7 +394,7 @@ class _PatientProfileState extends State<PatientProfile> {
                   if (dres[0] == "success") {
                     print('in success');
                     setState(() {
-                      widget.patient.name = dres[1];
+                      widget.doctor.name = dres[1];
                       if (dres[0] == "success") {
                         Toast.show("Success", context,
                             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -435,15 +450,15 @@ class _PatientProfileState extends State<PatientProfile> {
                   return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
+                  "email": widget.doctor.email,
                   "icno": icnoController.text,
                 }).then((res) {
                   var string = res.body;
                   List dres = string.split(",");
                   if (dres[0] == "success") {
                     setState(() {
-                      widget.patient.icno = dres[4];
-                      Toast.show("Success. Log in again to view changes.", context,
+                      widget.doctor.icno = dres[4];
+                      Toast.show("Success.", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                     Navigator.of(context).pop();
                     return;
@@ -469,7 +484,7 @@ class _PatientProfileState extends State<PatientProfile> {
   void _changeContact() {
     TextEditingController contactController = TextEditingController();
     // flutter defined function
-    print(widget.patient.name);
+    print(widget.doctor.name);
     
     showDialog(
       context: context,
@@ -496,15 +511,15 @@ class _PatientProfileState extends State<PatientProfile> {
                       return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
+                  "email": widget.doctor.email,
                   "contact": contactController.text,
                 }).then((res) {
                   var string = res.body;
                   List dres = string.split(",");
                   if (dres[0] == "success") {
                     setState(() {
-                      widget.patient.contact = dres[3];
-                      Toast.show("Success. ", context,
+                      widget.doctor.contact = dres[3];
+                      Toast.show("Success.", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                     Navigator.of(context).pop();
                     return;
@@ -528,22 +543,22 @@ class _PatientProfileState extends State<PatientProfile> {
     );
   }
 
-  void _changeEmContact() {
-    TextEditingController emcontactController = TextEditingController();
+  void _changeOfficeContact() {
+    TextEditingController officecontactController = TextEditingController();
     // flutter defined function
-    print(widget.patient.em_contact);
+    print(widget.doctor.officecontact);
     
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change emergency contact"),
+          title: new Text("Change Office contact"),
           content: new TextField(
               keyboardType: TextInputType.phone,
-              controller: emcontactController,
+              controller: officecontactController,
               decoration: InputDecoration(
-                labelText: 'emergency contact',
+                labelText: 'office contact',
                 icon: Icon(Icons.phone),
               )),
           actions: <Widget>[
@@ -551,21 +566,21 @@ class _PatientProfileState extends State<PatientProfile> {
             new FlatButton(
               child: new Text("Yes"),
               onPressed: () {
-                if (emcontactController.text.length < 5) {
-                  Toast.show("Please enter correct emergency contact number", context,
+                if (officecontactController.text.length < 5) {
+                  Toast.show("Please enter correct office contact number", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       return;
                 }
                 http.post(urlupdate, body: {
-                  "email": widget.patient.email,
-                  "em_contact": emcontactController.text,
+                  "email": widget.doctor.email,
+                  "officecontact": officecontactController.text,
                 }).then((res) {
                   var string = res.body;
                   List dres = string.split(",");
                   if (dres[0] == "success") {
                     setState(() {
-                      widget.patient.em_contact = dres[5];
-                      Toast.show("Success. Log in again to view changes.", context,
+                      widget.doctor.officecontact = dres[5];
+                      Toast.show("Success.", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                     Navigator.of(context).pop();
                     return;
@@ -595,9 +610,6 @@ class _PatientProfileState extends State<PatientProfile> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('pass', pass);
   }
-
-
-
     
 }
 

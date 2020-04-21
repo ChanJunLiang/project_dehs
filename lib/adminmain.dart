@@ -1,5 +1,6 @@
+import 'package:dehs/listdoctorprofile.dart';
+import 'package:dehs/listpatientprofile.dart';
 import 'package:flutter/material.dart';
-import 'package:dehs/appointment.dart';
 import 'package:dehs/adminprofile.dart';
 import 'package:dehs/admin.dart';
 class AdminMain extends StatefulWidget {
@@ -20,8 +21,9 @@ class _AdminMainState extends State<AdminMain> {
   void initState() {
     super.initState();
     tabs = [
-      Appointment(),
-      AdminProfile(),
+      ListPatientProfile(admin: widget.admin),
+      ListDoctorProfile(admin: widget.admin),
+      AdminProfile(admin: widget.admin),
     ];
   }
   
@@ -46,9 +48,14 @@ class _AdminMainState extends State<AdminMain> {
         items: [
           
           BottomNavigationBarItem(
-            icon: Icon(Icons.list, ),
-            title: Text("Appointment"),
+            icon: Icon(Icons.face, ),
+            title: Text("Patient"),
           ),
+
+          BottomNavigationBarItem(
+              icon: Icon(Icons.supervisor_account, ),
+              title: Text("Doctor"),
+            ), 
           
           BottomNavigationBarItem(
             icon: Icon(Icons.person ),

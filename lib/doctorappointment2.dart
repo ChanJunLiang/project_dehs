@@ -1,26 +1,25 @@
 import 'dart:convert';
-
 import 'package:dehs/patient.dart';
 import 'package:flutter/material.dart';
-import 'package:dehs/staff.dart';
+import 'package:dehs/doctor.dart';
 import 'package:flutter/services.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-import 'package:dehs/makeappointment.dart';
+import 'package:dehs/makeappointment1.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 double perpage = 1;
 
-class StaffAppointment2 extends StatefulWidget {
-  final Staff staff;
-  final MakeAppointment makeappointment;
-  StaffAppointment2({Key key, this.staff, this.makeappointment});
+class DoctorAppointment2 extends StatefulWidget {
+  final Doctor doctor;
+  final MakeAppointment1 makeappointment;
+  DoctorAppointment2({Key key, this.doctor, this.makeappointment});
 
   @override
-  _StaffAppointment2State createState() => _StaffAppointment2State();
+  _DoctorAppointment2State createState() => _DoctorAppointment2State();
 }
 
-class _StaffAppointment2State extends State<StaffAppointment2> {
+class _DoctorAppointment2State extends State<DoctorAppointment2> {
    GlobalKey<RefreshIndicatorState> refreshKey;
 
   List data;
@@ -28,7 +27,7 @@ class _StaffAppointment2State extends State<StaffAppointment2> {
   void initState() {
     super.initState();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-    
+    makeRequest();
   }
 
   @override
@@ -139,20 +138,28 @@ class _StaffAppointment2State extends State<StaffAppointment2> {
                                 Expanded(
                                   child: Container(
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                             data[index]['p_email']
-                                                .toString()
                                                 .toUpperCase(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
+                                            Text(
+                                            'start time: ${data[index]['starttime']}',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
+                                            Text(
+                                            'end time: ${data[index]['endtime']}',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
                                         
                                         SizedBox(
                                           height: 5,
-                                        ),
-                                        Text("Appointment Time " + data[index]['appointmenttime']),
-                                        
+                                        ),                   
                                       ],
                                     ),
                                   ),
@@ -175,13 +182,10 @@ class _StaffAppointment2State extends State<StaffAppointment2> {
   }
 
   Future<String> makeRequest() async {
-    String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/loadappointment.php";
-    ProgressDialog pr = new ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Loading Appointment");
-    pr.show();
+    String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/listappointment.php";
+    
     http.post(urlLoadJobs, body: {
-      "email": widget.staff.email ?? "notavail",
+      "drid": widget.doctor.drid,
     }).then((res) {
       setState(() {
         print("get data here");
@@ -190,19 +194,13 @@ class _StaffAppointment2State extends State<StaffAppointment2> {
         perpage = (data.length / 10);
         print("data");
         print(data);
-        pr.dismiss();
       });
     }).catchError((err) {
       print(err);
-      pr.dismiss();
     });
     return null;
   }
 
-  Future init() async {
-    this.makeRequest();
-    //_getCurrentLocation();
-  }
 
 }
 

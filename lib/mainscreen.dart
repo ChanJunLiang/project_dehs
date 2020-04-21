@@ -1,3 +1,4 @@
+import 'package:dehs/makeappointment1.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/appointment.dart';
 import 'package:dehs/patientprofile.dart';
@@ -23,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabs = [
-      Appointment(patient: widget.patient),
+      MakeAppointment1(patient: widget.patient),
       PatientProfile(patient: widget.patient),
     ];
   }
