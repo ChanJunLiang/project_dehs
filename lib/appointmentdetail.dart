@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dehs/mainscreen.dart';
 import 'package:dehs/makeappointment1.dart';
 import 'package:dehs/patient.dart';
 import 'package:dehs/doctor.dart';
@@ -166,363 +167,24 @@ class _DetailInterfaceState extends State<DetailInterface> {
                         height: 10,
                       ),                    
                   ]),
-                                   
-                  TableRow(children: [
-                                  Text("0910 - 0925",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t0910==null?MaterialButton(
-                                onPressed: _book0910,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                                  ]),
-                                  
-                   TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("0930 - 0945",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t0930==null?MaterialButton(
-                                onPressed: _book0930,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                                  ]),
-                  TableRow(children: [
-                                  Text("0950 - 1005",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t0950==null?MaterialButton(
-                                onPressed: _book0950,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1010 - 1025",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1010==null?MaterialButton(
-                                onPressed: _book1010,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1030 - 1045",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1030==null?MaterialButton(
-                                onPressed: _book1030,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1050 - 1105",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1050==null?MaterialButton(
-                                onPressed: _book1050,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1110 - 1125",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1110==null?MaterialButton(
-                                onPressed: _book1110,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1130 - 1145",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1130==null?MaterialButton(
-                                onPressed: _book1130,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1150 - 1205",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1150==null?MaterialButton(
-                                onPressed: _book1150,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1410 - 1425",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1410==null?MaterialButton(
-                                onPressed: _book1410,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1430 - 1445",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1430==null?MaterialButton(
-                                onPressed: _book1430,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1450 - 1505",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1450==null?MaterialButton(
-                                onPressed: _book1450,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1510 - 1525",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1510==null?MaterialButton(
-                                onPressed: _book1510,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1530 - 1545",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1530==null?MaterialButton(
-                                onPressed: _book1530,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Text("1550 - 1605",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1550==null?MaterialButton(
-                                onPressed: _book1550,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    child: Text("1610 - 1625",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.teal[200],
-                                    ),
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1610==null?MaterialButton(
-                                onPressed: _book1610,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                  TableRow(children: [
-                    
-                                  Text("1630 - 1645",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                  Container(
-                                    height: 20,
-                                child: Align(alignment: Alignment.center,
-                                child:widget.doctor.t1630==null?MaterialButton(
-                                onPressed: _book1630,
-                                child: Text("Book",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),),)
-                                      :Text("Not Available",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                  ]),
-                 
+
+                  timetable1("09.10am - 09.25am", "t0910", widget.doctor.t0910),
+                  timetable2("09.30am - 09.45am", "t0930", widget.doctor.t0930),
+                  timetable1("09.50am - 10.05am", "t0950", widget.doctor.t0950),
+                  timetable2("10.10am - 10.25am", "t1010", widget.doctor.t1010),
+                  timetable1("10.30am - 10.45am", "t1030", widget.doctor.t1030),
+                  timetable2("10.50am - 11.05am", "t1050", widget.doctor.t1050),
+                  timetable1("11.10am - 11.25am", "t1110", widget.doctor.t1110),
+                  timetable2("11.30am - 11.45am", "t1130", widget.doctor.t1130),
+                  timetable1("11.50am - 12.05am", "t1150", widget.doctor.t1150),
+                  timetable2("02.10pm - 02.25pm", "t1410", widget.doctor.t1410),
+                  timetable1("02.30pm - 02.45pm", "t1430", widget.doctor.t1430),
+                  timetable2("02.50pm - 03.05pm", "t1450", widget.doctor.t1450),
+                  timetable1("03.10pm - 03.25pm", "t1510", widget.doctor.t1510),
+                  timetable2("03.30pm - 03.45pm", "t1530", widget.doctor.t1530),
+                  timetable1("03.50pm - 04.05pm", "t1550", widget.doctor.t1550),
+                  timetable2("04.10pm - 04.25pm", "t1610", widget.doctor.t1610),
+                  timetable1("04.30pm - 04.45pm", "t1630", widget.doctor.t1630),                
                 ]),
                 
               ),
@@ -537,741 +199,101 @@ class _DetailInterfaceState extends State<DetailInterface> {
       ],
     );
   }
+  
 
-  void _book0910() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 0910 - 0925?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t0910",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
+  TableRow timetable1(String period, String time, String availTime){
+    return TableRow(children: [
+                Text(period,
+      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                Container(
+                  height: 20,
+              child: Align(alignment: Alignment.center,
+              child:availTime==null?MaterialButton(
+              onPressed: ()=> {onBook(period, time, availTime)},
+              child: Text("Book",style: TextStyle(
+                    color: Colors.blue[600],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),),)
+                    :Text("Not Available",
+      style: TextStyle(fontSize: 16)),
+              ),
             ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book0930() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 0930 - 0945?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t0930",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book0950() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 0950 - 1005?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t0950",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1010() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1010 - 1025?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1010",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1030() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1030 - 1045?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1030",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1050() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1050 - 1105?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1050",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1110() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1110 - 1125?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1110",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1130() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1130 - 1145?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1130",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1150() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1150 - 1205?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1150",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1410() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1410 - 1425?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1410",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1430() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1430 - 1445?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1430",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1450() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1450 - 1505?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1450",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1510() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1510 - 1525?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1510",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1530() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1530 - 1545?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1530",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1550() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1550 - 1605?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1550",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1610() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1610 - 1625?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1610",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _book1630() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Confirm Booking 1630 - 1645?"),
-          
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () {
-                http.post(urlbook, body: {
-                  "doctor": widget.doctor.email,
-                  "patient": widget.patient.email,
-                  "time": "t1645",
-                }).then((res) {
-                  var string = res.body;
-                  List dres = string.split(",");
-                  if (dres[0] == "success") {
-                    setState(() {
-                      Toast.show("Success.", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    Navigator.of(context).pop();
-                    return;
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    ]);
   }
 
+  TableRow timetable2(String period, String time, String availTime){
+    return TableRow(children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.teal[200],
+                ),
+                child: Text(period,
+    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.teal[200],
+                ),
+                height: 20,
+            child: Align(alignment: Alignment.center,
+            child:availTime==null?MaterialButton(
+            onPressed: ()=> {onBook(period, time, availTime)},
+            child: Text("Book",style: TextStyle(
+                  color: Colors.blue[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),),)
+                  :Text("Not Available",
+    style: TextStyle(fontSize: 16)),
+            ),
+          ),
+              ]);
+  }
 
-    
+  void onBook(String period, String time, String availTime){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Confirm Booking $period?"),
+          
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                http.post(urlbook, body: {
+                  "doctor": widget.doctor.email,
+                  "patient": widget.patient.email,
+                  "time": time,
+                  
+                }).then((res) {
+                  var string = res.body;
+                  List dres = string.split(",");
+                  if (dres[0] == "success") {
+                    setState(() {
+                      
+                      Toast.show("Success.", context,
+                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                    Navigator.of(context).pop();
+                    acceptRequest(time);
+                    });
+                  } else {}
+                }).catchError((err) {
+                  print(err);
+                });
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<String> acceptRequest(String time) async {
     String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/makeappointment.php";
@@ -1281,7 +303,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
     pr.show();
     http.post(urlLoadJobs, body: {
       "patient": widget.patient.email,
-      "booktime": time,
+      "time": time,
       "doctor": widget.doctor.email,
       
     }).then((res) {
@@ -1298,7 +320,35 @@ class _DetailInterfaceState extends State<DetailInterface> {
     }).catchError((err) {
       print(err);
       pr.dismiss();
+      _onLogin(widget.patient.email, context);
     });
     return null;
   }
+
+  void _onLogin(String email, BuildContext ctx) {
+     String urlgetuser = "http://pickupandlaundry.com/dehs/php/getpatient.php";
+
+    http.post(urlgetuser, body: {
+      "email": widget.patient.email,
+    }).then((res) {
+      print(res.statusCode);
+      var string = res.body;
+      List dres = string.split(",");
+      print(dres);
+      if (dres[0] == "success") {
+        Patient patient = new Patient(
+            name: dres[1],
+            email: dres[2],
+            icno: dres[3],
+            contact: dres[4],
+            em_contact: dres[5],
+            address: dres[6]);
+        Navigator.push(ctx,
+            MaterialPageRoute(builder: (context) => MainScreen(patient: patient)));
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
 }
+

@@ -1,5 +1,5 @@
 class Appointment {
-  String doctor, patient, booktime;
+  String apptid, doctor, patient, booktime;
 
-  Appointment({this.doctor, this.patient, booktime});
+  Appointment({this.apptid, this.doctor, this.patient, this.booktime});
 }

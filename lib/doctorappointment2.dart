@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dehs/appointment.dart';
+import 'package:dehs/drapptdetail.dart';
 import 'package:dehs/patient.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/doctor.dart';
@@ -119,7 +121,17 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                       child: Card(
                         elevation: 2,
                         child: InkWell(
-                          onTap: (){},
+                          onTap: ()=> _onbookdetail(
+                            data[index]['apptid'],
+                            data[index]['dr_email'],
+                            data[index]['p_email'],
+                            data[index]['booktime'],
+                          ),
+                          onLongPress: () => _onbookdelete(
+                              data[index]['apptid'].toString(),
+                              data[index]['dr_email'].toString(),
+                              data[index]['p_email'].toString(),
+                              data[index]['booktime'].toString()),
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Row(
@@ -141,21 +153,16 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                            data[index]['p_email']
-                                                .toUpperCase(),
+                                            data[index]['p_email'],
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                            Text(
-                                            'start time: ${data[index]['starttime']}',
+                                        Text(
+                                            'Appointment time: ${data[index]['booktime']}',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                            Text(
-                                            'end time: ${data[index]['endtime']}',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold)),
+                                            
                                         
                                         SizedBox(
                                           height: 5,
@@ -185,7 +192,7 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/listappointment.php";
     
     http.post(urlLoadJobs, body: {
-      "drid": widget.doctor.drid,
+      "dr_email": widget.doctor.email,
     }).then((res) {
       setState(() {
         print("get data here");
@@ -200,6 +207,117 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     });
     return null;
   }
+
+  void _onbookdetail(
+      String apptid,
+      String doctor,
+      String patient,
+      String booktime,) {
+    Appointment appointment = new Appointment(
+        apptid: apptid,
+        doctor: doctor,
+        patient: patient,
+        booktime: booktime, );
+    //print(data);
+    
+    Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Drapptdetail(appointment: appointment, doctor: widget.doctor)));
+  }
+
+  void _onbookdelete(String apptid, String doctor, String patient, String booktime) {
+    print("Delete appointment of " + apptid);
+    _showDialog(apptid, doctor, booktime);
+  }
+
+  void _showDialog(String apptid, String doctor, String booktime) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Delete appointment of " + apptid),
+          content: new Text("Are your sure?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                deleteRequest(apptid, doctor, booktime);
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String> deleteRequest(String apptid, String doctor, String booktime) async {
+    String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/deleteappt.php";
+    ProgressDialog pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+    pr.style(message: "Deleting Jobs");
+    pr.show();
+    print('delete1');
+    http.post(urlLoadJobs, body: {
+      "apptid": apptid,
+      "doctor": doctor,
+      "booktime": booktime,
+    }).then((res) {
+      print(res.body);
+      if (res.body == "success") {
+        deleteRequest2(apptid, doctor, booktime);
+      } else {
+        Toast.show("Failed", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    }).catchError((err) {
+      print(err);
+      pr.dismiss();
+    });
+    return null;
+  }
+
+  Future<String> deleteRequest2(String apptid, String doctor, String booktime) async {
+    String urlLoadJobs2 = "http://pickupandlaundry.com/dehs/php/deleteappt2.php";
+    ProgressDialog pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+    pr.style(message: "Deleting Jobs");
+    pr.show();
+    print('delete2');
+    http.post(urlLoadJobs2, body: {
+      "apptid": apptid,
+      "doctor": doctor,
+      "booktime": booktime,
+    }).then((res) {
+      print(res.body);
+      if (res.body == "success") {
+        Toast.show("Success", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        init();
+      } else {
+        Toast.show("Failed", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    }).catchError((err) {
+      print(err);
+      pr.dismiss();
+    });
+    return null;
+  }
+
+  Future init() async {
+    this.makeRequest();
+  }
+
+  
 
 
 }
