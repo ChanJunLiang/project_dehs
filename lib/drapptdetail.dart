@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dehs/doctormain.dart';
+import 'package:dehs/patient.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/appointment.dart';
@@ -9,9 +10,10 @@ import 'doctormain.dart';
 class Drapptdetail extends StatefulWidget {
   final Appointment appointment;
   final Doctor doctor;
+  final Patient patient;
  
 
-  const Drapptdetail({Key key, this.appointment, this.doctor}) : super(key: key);
+  const Drapptdetail({Key key, this.appointment, this.doctor, this.patient}) : super(key: key);
 
   @override
   _DrapptdetailState createState() => _DrapptdetailState();
@@ -37,6 +39,7 @@ class _DrapptdetailState extends State<Drapptdetail> {
               child: DetailInterface(
                 appointment: widget.appointment,
                 doctor: widget.doctor,
+                patient: widget.patient,
               ),
             ),
           )),
@@ -59,7 +62,8 @@ class _DrapptdetailState extends State<Drapptdetail> {
 class DetailInterface extends StatefulWidget {
   final Appointment appointment;
   final Doctor doctor;
-  DetailInterface({this.appointment, this.doctor});
+  final Patient patient;
+  DetailInterface({this.appointment, this.doctor, this.patient});
 
   @override
   _DetailInterfaceState createState() => _DetailInterfaceState();
@@ -96,6 +100,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
               SizedBox(
                 height: 5,
               ),
+              
               Table(children: [
                 TableRow(children: [
                   Text("Patient email: ",
@@ -107,6 +112,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(widget.appointment.booktime.toString()),
                 ]),
+                
                 
                
                 

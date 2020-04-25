@@ -14,8 +14,9 @@ double perpage = 1;
 
 class DoctorAppointment2 extends StatefulWidget {
   final Doctor doctor;
+  final Patient patient;
   final MakeAppointment1 makeappointment;
-  DoctorAppointment2({Key key, this.doctor, this.makeappointment});
+  DoctorAppointment2({Key key, this.doctor, this.makeappointment, this.patient});
 
   @override
   _DoctorAppointment2State createState() => _DoctorAppointment2State();
@@ -59,22 +60,7 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                           children: <Widget>[
                                 Column(
                                 children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(10,10,10,5),
-                                    height: MediaQuery.of(context).size.height/5,
-                                    width: MediaQuery.of(context).size.width,
-                                    color: Colors.teal[50],
-                  
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(15,15,15,5),
-                                  decoration: BoxDecoration(
-                                  color: Colors.teal[100],
-                                  border: Border.all(color: Colors.teal[300]),
-                                  borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0)),
-                                  boxShadow: [BoxShadow(blurRadius: 10,color: Colors.teal[400],offset: Offset(0,0))]),
-                                  child: Text('No pending appointment for today.', style: TextStyle(fontSize: 20)),
-                                  ),),
+                                  
 
                                   SizedBox(
                                     height: 15,
@@ -221,7 +207,7 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     //print(data);
     
     Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Drapptdetail(appointment: appointment, doctor: widget.doctor)));
+                context, MaterialPageRoute(builder: (context) => Drapptdetail(appointment: appointment, doctor: widget.doctor, patient: widget.patient)));
   }
 
   void _onbookdelete(String apptid, String doctor, String patient, String booktime) {
@@ -261,10 +247,6 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
 
   Future<String> deleteRequest(String apptid, String doctor, String booktime) async {
     String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/deleteappt.php";
-    ProgressDialog pr = new ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Deleting Jobs");
-    pr.show();
     print('delete1');
     http.post(urlLoadJobs, body: {
       "apptid": apptid,
@@ -280,17 +262,12 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
       }
     }).catchError((err) {
       print(err);
-      pr.dismiss();
     });
     return null;
   }
 
   Future<String> deleteRequest2(String apptid, String doctor, String booktime) async {
     String urlLoadJobs2 = "http://pickupandlaundry.com/dehs/php/deleteappt2.php";
-    ProgressDialog pr = new ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Deleting Jobs");
-    pr.show();
     print('delete2');
     http.post(urlLoadJobs2, body: {
       "apptid": apptid,
@@ -299,7 +276,7 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     }).then((res) {
       print(res.body);
       if (res.body == "success") {
-        Toast.show("Success", context,
+        Toast.show("Succesfully deleted the appointment.", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         init();
       } else {
@@ -308,7 +285,6 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
       }
     }).catchError((err) {
       print(err);
-      pr.dismiss();
     });
     return null;
   }

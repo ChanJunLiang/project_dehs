@@ -10,7 +10,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
 
 String urldelete="http://mobilehost2019.com/LBAS/php/delete_ads.php";
-String urlbook = "http://pickupandlaundry.com/dehs/php/bookappointment.php";
+String urlbook = "http://pickupandlaundry.com/dehs/php/makeappointment.php";
 List data;
 
 class AppointmentDetail extends StatefulWidget {
@@ -263,7 +263,16 @@ class _DetailInterfaceState extends State<DetailInterface> {
               onPressed: () {
                 http.post(urlbook, body: {
                   "doctor": widget.doctor.email,
+                  "drid": widget.doctor.drid,
+                  "dr_name": widget.doctor.name,
+                  "dr_contact": widget.doctor.contact,
+                  "officecontact": widget.doctor.officecontact,
                   "patient": widget.patient.email,
+                  "p_name": widget.patient.name,
+                  "icno": widget.patient.icno,
+                  "p_contact": widget.patient.contact,
+                  "em_contact": widget.patient.em_contact,
+                  "address": widget.patient.address,
                   "time": time,
                   
                 }).then((res) {
@@ -277,9 +286,13 @@ class _DetailInterfaceState extends State<DetailInterface> {
                     Navigator.of(context).pop();
                     acceptRequest(time);
                     });
-                  } else {}
+                  } else {
+                    Toast.show("Failed to book, please check your appointment.", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);}
                 }).catchError((err) {
                   print(err);
+                  print('hello1');
+                  
                 });
               },
             ),
@@ -296,15 +309,24 @@ class _DetailInterfaceState extends State<DetailInterface> {
   }
 
   Future<String> acceptRequest(String time) async {
-    String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/makeappointment.php";
+    String urlLoadJobs = "http://pickupandlaundry.com/dehs/php/bookappointment.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
     pr.style(message: "Booking");
     pr.show();
     http.post(urlLoadJobs, body: {
-      "patient": widget.patient.email,
-      "time": time,
-      "doctor": widget.doctor.email,
+                  "doctor": widget.doctor.email,
+                  "drid": widget.doctor.drid,
+                  "dr_name": widget.doctor.name,
+                  "dr_contact": widget.doctor.contact,
+                  "officecontact": widget.doctor.officecontact,
+                  "patient": widget.patient.email,
+                  "p_name": widget.patient.name,
+                  "icno": widget.patient.icno,
+                  "p_contact": widget.patient.contact,
+                  "em_contact": widget.patient.em_contact,
+                  "address": widget.patient.address,
+                  "time": time,
       
     }).then((res) {
       print(res.body);
@@ -313,7 +335,8 @@ class _DetailInterfaceState extends State<DetailInterface> {
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
             pr.dismiss();
       } else {
-        Toast.show("Failed", context,
+        print('hello2');
+            Toast.show("Failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
             pr.dismiss();
       }

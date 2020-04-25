@@ -1,4 +1,5 @@
 import 'package:dehs/makeappointment1.dart';
+import 'package:dehs/patientappt.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/appointment.dart';
 import 'package:dehs/patientprofile.dart';
@@ -25,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     tabs = [
       MakeAppointment1(patient: widget.patient),
+      Patientappt(patient: widget.patient),
       PatientProfile(patient: widget.patient),
     ];
   }
@@ -52,6 +54,11 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             title: Text("Appointment"),
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person ),
+            title: Text("Your Appointment"),
           ),
           
           BottomNavigationBarItem(
