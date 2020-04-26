@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dehs/announcement.dart';
 import 'package:dehs/appointment.dart';
 import 'package:dehs/drapptdetail.dart';
 import 'package:dehs/patient.dart';
@@ -17,6 +18,7 @@ class DoctorAppointment2 extends StatefulWidget {
   final Patient patient;
   final MakeAppointment1 makeappointment;
   DoctorAppointment2({Key key, this.doctor, this.makeappointment, this.patient});
+  
 
   @override
   _DoctorAppointment2State createState() => _DoctorAppointment2State();
@@ -24,8 +26,16 @@ class DoctorAppointment2 extends StatefulWidget {
 
 class _DoctorAppointment2State extends State<DoctorAppointment2> {
    GlobalKey<RefreshIndicatorState> refreshKey;
+   final TextEditingController _anncontroller = TextEditingController();
+   String message;
+   bool edit=false;
+   bool autof=false;
 
   List data;
+  List ann;
+  List announcementlist;
+  List announcement;
+
 
   void initState() {
     super.initState();
@@ -59,8 +69,53 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                         child: Column(
                           children: <Widget>[
                                 Column(
-                                children: <Widget>[
-                                  
+                                children: <Widget>[            
+                                  Stack(
+                                    children:<Widget>[
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(10,10,10,5),
+                                      height: MediaQuery.of(context).size.height/5,
+                                      width: MediaQuery.of(context).size.width,
+                                      color: Colors.teal[50],        
+                                        child: Container(
+                                          padding: EdgeInsets.fromLTRB(15,5,15,5),
+                                          decoration: BoxDecoration(
+                                          color: Colors.teal[100],
+                                          border: Border.all(color: Colors.teal[300]),
+                                          borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                          boxShadow: [BoxShadow(blurRadius: 10,color: Colors.teal[400],offset: Offset(0,0))]),
+                                          child:TextField(
+                                            autofocus: true,
+                                            enabled: edit,
+                                            controller: _anncontroller,
+                                            keyboardType: TextInputType.multiline,    
+                                            maxLines: 5, 
+                                            scrollPadding: EdgeInsets.all(20.0),
+                                            decoration: InputDecoration(
+                                              labelText: ann[index]['announcement'].toString(),
+                                              border: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              errorBorder: InputBorder.none,
+                                              disabledBorder: InputBorder.none,
+                                            ),
+                                          ),
+                                      
+                                        ),
+                                      ),
+                                      Positioned(
+                                        right: 15,
+                                        top: 10,
+                                        child: GestureDetector(
+                                          onTap: _editAnnounce,
+                                          child: Container(
+                                            child: Icon(Icons.edit, color: Colors.blueGrey,)
+                                          )
+                                        )
+                                      )
+                                    ]
+                                  ),
 
                                   SizedBox(
                                     height: 15,
@@ -110,7 +165,16 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                           onTap: ()=> _onbookdetail(
                             data[index]['apptid'],
                             data[index]['dr_email'],
+                            data[index]['drid'],
+                            data[index]['dr_name'],
+                            data[index]['dr_contact'],
+                            data[index]['officecontact'],
                             data[index]['p_email'],
+                            data[index]['p_name'],
+                            data[index]['icno'],
+                            data[index]['p_contact'],
+                            data[index]['em_contact'],
+                            data[index]['address'],
                             data[index]['booktime'],
                           ),
                           onLongPress: () => _onbookdelete(
@@ -167,10 +231,10 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     )));
   }
 
-
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
      this.makeRequest();
+     this.getAnn();
     return null;
   }
 
@@ -194,15 +258,77 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     return null;
   }
 
+  void _editAnnounce(){
+    //----activate textfield----
+    if(edit==false){  
+      setState(() {
+        edit=true; 
+      });   
+    }
+    //----deactivate textfield----
+    else if(edit==true){
+      setState(() {
+        edit=false;
+        if(_anncontroller.text != null){
+            _onpostannouncement();
+        }
+      });
+    }
+  }
+
+  void _onpostannouncement() {
+  String urlann = 'http://pickupandlaundry.com/dehs/php/postann.php';
+    message = _anncontroller.text;
+
+      if(message != 'null'){
+        ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Posting announcement in progress");
+      pr.show();
+      http.post(urlann, body: {
+        "message": message,
+      }).then((res) {
+        print(res.statusCode);
+        Toast.show(res.body, context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        _anncontroller.text = '';
+        pr.dismiss();
+      }).catchError((err) {
+        print(err);
+      });
+      } else {
+      Toast.show("Check your registration information", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
+  }
+
   void _onbookdetail(
       String apptid,
       String doctor,
+      String drid,
+      String dr_name,
+      String dr_contact,
+      String officecontact,
       String patient,
+      String p_name,
+      String icno,
+      String p_contact,
+      String em_contact,
+      String address,
       String booktime,) {
     Appointment appointment = new Appointment(
         apptid: apptid,
         doctor: doctor,
+        drid: drid,
+        dr_name: dr_name,
+        dr_contact: dr_contact,
+        officecontact: officecontact,
         patient: patient,
+        p_name: p_name,
+        icno: icno,
+        p_contact: p_contact,
+        em_contact: em_contact,
+        address: address,
         booktime: booktime, );
     //print(data);
     
@@ -289,12 +415,31 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
     return null;
   }
 
+  Future<String> getAnn() async {
+    String urlLoadann = "http://pickupandlaundry.com/dehs/php/getann.php";
+    http.post(urlLoadann, body: {
+    }).then((res) {
+      setState(() {
+        var extractdata = json.decode(res.body);
+        ann = extractdata["announcement"];
+        print("ann");
+        print(ann);
+        // pr.dismiss();
+      });
+    }).catchError((err) {
+      print(err);
+      // pr.dismiss();
+    });
+    return null;
+  }
+
   Future init() async {
     this.makeRequest();
+    this.getAnn();
   }
 
   
 
-
 }
+
 

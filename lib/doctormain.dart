@@ -1,5 +1,4 @@
 import 'package:dehs/doctor.dart';
-import 'package:dehs/doctorannounce.dart';
 import 'package:dehs/doctorappointment2.dart';
 import 'package:flutter/material.dart';
 import 'package:dehs/doctorprofile.dart';
@@ -22,7 +21,6 @@ class _DoctorMainState extends State<DoctorMain> {
     super.initState();
     tabs = [
       DoctorAppointment2(doctor: widget.doctor),
-      Doctorannouncement(doctor: widget.doctor),
       DoctorProfile(doctor: widget.doctor),
     ];
   }
@@ -50,11 +48,6 @@ class _DoctorMainState extends State<DoctorMain> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list ),
             title: Text("Appointment List"),
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail ),
-            title: Text("Announcement"),
           ),
           
           BottomNavigationBarItem(

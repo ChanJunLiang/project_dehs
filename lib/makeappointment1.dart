@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dehs/announcement.dart';
 import 'package:dehs/appointmentdetail.dart';
 import 'package:dehs/doctor.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,9 @@ double perpage = 1;
 class MakeAppointment1 extends StatefulWidget {
   final Patient patient;
   final Appointment appointment;
+  final Announcement announcement;
   
-  MakeAppointment1({Key key, this.patient, this.appointment}) : super(key: key);
+  MakeAppointment1({Key key, this.patient, this.appointment, this.announcement}) : super(key: key);
     @override
   _MakeAppointment1State createState() => _MakeAppointment1State();
 }
@@ -26,12 +28,16 @@ class _MakeAppointment1State extends State<MakeAppointment1> {
   List doctor;
   List doctorList;
   List data;
+  List message;
+  List announcementlist;
+  List announcement;
   GlobalKey<RefreshIndicatorState> refreshKey;
 
   @override
   initState() {
     super.initState();
     getDoctor();    
+    getAnn();
   }
 
 
@@ -76,7 +82,7 @@ class _MakeAppointment1State extends State<MakeAppointment1> {
                 borderRadius: BorderRadius.all(
                 Radius.circular(10.0)),
                 boxShadow: [BoxShadow(blurRadius: 10,color: Colors.teal[400],offset: Offset(0,0))]),
-                child: Text('This will be notification', style: TextStyle(fontSize: 20)),
+                child: Text(message[index]['announcement'].toString(), style: TextStyle(fontSize: 20)),
               ),
                 
                 
@@ -185,7 +191,7 @@ class _MakeAppointment1State extends State<MakeAppointment1> {
 
   Future init() async {
     this.getDoctor();
-    //_getCurrentLocation();
+    this.getAnn();
   } 
 
   Future<String> getDoctor() async {
@@ -197,6 +203,24 @@ class _MakeAppointment1State extends State<MakeAppointment1> {
         data = extractdata["doctors"];
         print("data");
         print(data);
+        // pr.dismiss();
+      });
+    }).catchError((err) {
+      print(err);
+      // pr.dismiss();
+    });
+    return null;
+  }
+
+  Future<String> getAnn() async {
+    String urlLoadann = "http://pickupandlaundry.com/dehs/php/getann.php";
+    http.post(urlLoadann, body: {
+    }).then((res) {
+      setState(() {
+        var extractdata = json.decode(res.body);
+        message = extractdata["announcement"];
+        print("message");
+        print(message);
         // pr.dismiss();
       });
     }).catchError((err) {
@@ -263,6 +287,7 @@ class _MakeAppointment1State extends State<MakeAppointment1> {
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
     this.getDoctor();
+    this.getAnn();
     return null;
   }
 

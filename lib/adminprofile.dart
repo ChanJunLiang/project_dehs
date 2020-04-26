@@ -57,33 +57,24 @@ class _AdminProfileState extends State<AdminProfile> {
                                   TableRow(children: [
                                   new Text("Name",style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15),),
-                                  new Text((widget.admin.name).toUpperCase(),style: TextStyle(
+                                      fontSize: 18),),
+                                  new Text(('ADMIN'),style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15),),
-                                  Container(                                    
-                                child:MaterialButton(
-                                onPressed: _changeName,
-                                child: Text("UPDATE",style: TextStyle(
-                                      color: Colors.blue[600],
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13),),),
-                        
-                              ),
+                                      fontSize: 18),),
+                                  ]),
+
+                                  TableRow(children: [
+                                  Container(height: 18,),
+                                  Container(height: 18,),
                                   ]),
 
                                   TableRow(children: [
                                   new Text("Email",style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15),),
+                                      fontSize: 18),),
                                   new Text(widget.admin.email,style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15),),
-                                  Container(
-                                child: Align(alignment: Alignment.center,
-                                
-                                ),
-                              ),
+                                      fontSize: 18),),
                                   ]),
                                   
                                   ]

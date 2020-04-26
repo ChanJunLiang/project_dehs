@@ -1,5 +1,5 @@
 class Announcement {
-  String announcement;
+  String message;
 
-  Announcement({this.announcement});
+  Announcement({this.message});
 }
