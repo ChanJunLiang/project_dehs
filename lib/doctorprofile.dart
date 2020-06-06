@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:dehs/doctor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
-import 'package:dehs/splashscreen.dart';
+import 'package:dehs/main.dart';
 
 String urlgetdoctor = "http://pickupandlaundry.com/dehs/php/getdoctor.php";
 String urlupdate = "http://pickupandlaundry.com/dehs/php/doctorupdateprofile.php";

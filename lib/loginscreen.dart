@@ -68,14 +68,14 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: 190.0,
-                    height: 190.0,
+                    width: 250.0,
+                    height: 250.0,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                      shape: BoxShape.rectangle,
                       border: Border.all(width: 2.0, color: Colors.teal[300]),
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage('assets/images/dehslogo.jpeg'))
+                        image: AssetImage('assets/images/dehslogoo.jpeg'))
                       ),
                     
                   ),

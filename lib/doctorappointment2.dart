@@ -195,7 +195,7 @@ class _DoctorAppointment2State extends State<DoctorAppointment2> {
                                       image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: AssetImage(
-                                    'assets/images/dehslogo.png'
+                                    'assets/images/dehslogoo.jpeg'
                                   )))),
                                 Expanded(
                                   child: Container(
